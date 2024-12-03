@@ -1,4 +1,5 @@
-﻿using GerenciadorDeTarefas.Application.UseCases.Tasks.GetAllTasks;
+﻿using GerenciadorDeTarefas.Application.UseCases.Tasks.DeleteTask;
+using GerenciadorDeTarefas.Application.UseCases.Tasks.GetAllTasks;
 using GerenciadorDeTarefas.Application.UseCases.Tasks.GetByIdTasks;
 using GerenciadorDeTarefas.Application.UseCases.Tasks.RegisterTask;
 using GerenciadorDeTarefas.Application.UseCases.Tasks.UpdateTask;
@@ -61,6 +62,18 @@ namespace GerenciadorDeTarefas.API.Controllers
             var useCase = new UpdateTaskUseCase();
             
             useCase.Execute(id, request);
+            
+            return NoContent();
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorsJson), StatusCodes.Status404NotFound)]
+        public IActionResult Delete(int id)
+        {
+            var useCase = new DeleteTaskByIdUseCase();
+            
+            useCase.Execute(id);
             
             return NoContent();
         }
