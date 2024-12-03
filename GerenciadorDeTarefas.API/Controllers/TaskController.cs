@@ -1,6 +1,7 @@
 ﻿using GerenciadorDeTarefas.Application.UseCases.Tasks.GetAllTasks;
 using GerenciadorDeTarefas.Application.UseCases.Tasks.GetByIdTasks;
 using GerenciadorDeTarefas.Application.UseCases.Tasks.RegisterTask;
+using GerenciadorDeTarefas.Application.UseCases.Tasks.UpdateTask;
 using GerenciadorDeTarefas.Communication.Requests;
 using GerenciadorDeTarefas.Communication.Responses;
 using Microsoft.AspNetCore.Http;
@@ -49,6 +50,19 @@ namespace GerenciadorDeTarefas.API.Controllers
             var response = useCase.Execute(id);
             
             return Ok(response);
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ResponseErrorsJson), StatusCodes.Status400BadRequest)]
+        public IActionResult Update([FromRoute] int id, [FromBody] RequestUpdateTaskJson request)
+        {
+            var useCase = new UpdateTaskUseCase();
+            
+            useCase.Execute(id, request);
+            
+            return NoContent();
         }
         
     }
