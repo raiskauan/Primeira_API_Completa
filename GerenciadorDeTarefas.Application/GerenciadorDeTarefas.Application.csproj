@@ -10,4 +10,8 @@
     <ProjectReference Include="..\GerenciadorDeTarefas.Communication\GerenciadorDeTarefas.Communication.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="UseCases\Tasks\GetByIdTasks.cs" />
+  </ItemGroup>
+
 </Project>

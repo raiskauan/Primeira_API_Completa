@@ -1,4 +1,5 @@
 ﻿using GerenciadorDeTarefas.Application.UseCases.Tasks.GetAllTasks;
+using GerenciadorDeTarefas.Application.UseCases.Tasks.GetByIdTasks;
 using GerenciadorDeTarefas.Application.UseCases.Tasks.RegisterTask;
 using GerenciadorDeTarefas.Communication.Requests;
 using GerenciadorDeTarefas.Communication.Responses;
@@ -36,6 +37,20 @@ namespace GerenciadorDeTarefas.API.Controllers
             }
             return NoContent();
         }
+        
+        [HttpGet]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(ResponseGetByIdJson), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public IActionResult GetById(int id)
+        {
+            var useCase = new GetByIdUseCase();
+            
+            var response = useCase.Execute(id);
+            
+            return Ok(response);
+        }
+        
     }
     
     
